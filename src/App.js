@@ -15,8 +15,8 @@ import {
 	Legs,
 	GuessWord,
 	LetterOptions,
-	GameMenu,
-	GameButton
+	GameButton,
+	GameMenu
 } from './App.sc';
 
 const App = () => {
