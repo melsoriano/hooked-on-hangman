@@ -23,11 +23,9 @@ import {
 const App = () => {
   const [fails, setFails] = useState([]);
   const [successes, setSuccesses] = useState([]);
-  // const [word, setWord] = useState(getWord());
-  // REFACTORED :
-  // use refactored data object with associated hint
-  // TODO: add more hints!!
   const [data, setData] = useState(getData())
+  // set previous word variable to catch repeats later on
+  const [prev, setPrev] = useState('')
   const [startMenu, setStartMenu] = useState(true);
   const threshold = useRef(5);
 
@@ -42,9 +40,9 @@ const App = () => {
   };
 
   const newGame = () => {
-    // REMOVED :
-    // setWord(getWord());
     setData(getData());
+    // set previous word variable
+    setPrev(data.word)
     setFails([]);
     setSuccesses([]);
   };
@@ -67,6 +65,11 @@ const App = () => {
           </Swingers>
         </HangingMan>
       </HangZone>
+
+      {/* catch repeated words */}
+      {data.word === prev && (
+        newGame()
+      )}
 
       {!startMenu &&
         data.word &&
