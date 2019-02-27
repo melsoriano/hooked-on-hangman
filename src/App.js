@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
 import { getData, letters, getWord } from './helpers';
 import {
@@ -23,11 +23,11 @@ import {
 const App = () => {
   const [fails, setFails] = useState([]);
   const [successes, setSuccesses] = useState([]);
-  const [data, setData] = useState(getData())
-  // set previous word variable to catch repeats later on
-  const [prev, setPrev] = useState('')
+  const [data, setData] = useState(getData());
+  const [prev, setPrev] = useState('');
   const [startMenu, setStartMenu] = useState(true);
   const threshold = useRef(5);
+
 
   const selectLetter = letter => {
     if (data.word.includes(letter)) {
@@ -86,12 +86,14 @@ const App = () => {
             </GuessWord>
           );
         })}
+
       <Hint>
         {!startMenu && (
           data.hint
         )
         }
       </Hint>
+
       {!startMenu &&
         data.word &&
         fails.length !== threshold.current &&
@@ -111,6 +113,13 @@ const App = () => {
             })}
           </LetterOptions>
         )}
+
+      {/* bind user key interactions as inputs */}
+      {onkeypress = (e) => {
+        if (!successes.includes(e.key)) {
+          selectLetter(e.key)
+        }
+      }};
 
       {(fails.length === threshold.current ||
         successes.length === data.word.length) &&
