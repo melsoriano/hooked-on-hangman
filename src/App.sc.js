@@ -69,6 +69,15 @@ export const GuessWord = styled.div`
 	${props => props && props.underline && `border-bottom: 5px solid #fff;`};
 `;
 
+export const Hint = styled.div`
+	font-size: 2rem;
+	color: #fff;
+	grid-column: 1 / -1;
+	animation: ${enter} 0.25s 0.25s ease both;
+	text-align: center;
+	position: relative;
+`
+
 export const LetterOptions = styled.div`
 	display: grid;
 	grid-gap: 2px;
