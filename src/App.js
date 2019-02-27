@@ -1,11 +1,12 @@
 import React, { useState, useRef } from 'react';
 import './App.css';
-import { letters, getWord } from './helpers';
+import { getData, letters, getWord } from './helpers';
 import {
   Container,
   LettersButton,
   HangZone,
   HangingMan,
+  Hint,
   Frame,
   Swingers,
   Rope,
@@ -22,13 +23,17 @@ import {
 const App = () => {
   const [fails, setFails] = useState([]);
   const [successes, setSuccesses] = useState([]);
-  const [word, setWord] = useState(getWord());
+  // const [word, setWord] = useState(getWord());
+  // REFACTORED :
+  // use refactored data object with associated hint
+  // TODO: add more hints!!
+  const [data, setData] = useState(getData())
   const [startMenu, setStartMenu] = useState(true);
   const threshold = useRef(5);
 
   const selectLetter = letter => {
-    if (word.includes(letter)) {
-      const count = word.match(new RegExp(letter, 'g')).length;
+    if (data.word.includes(letter)) {
+      const count = data.word.match(new RegExp(letter, 'g')).length;
       const matches = new Array(count).fill().map(() => letter);
       setSuccesses([...successes, ...matches]);
     } else {
@@ -37,7 +42,9 @@ const App = () => {
   };
 
   const newGame = () => {
-    setWord(getWord());
+    // REMOVED :
+    // setWord(getWord());
+    setData(getData());
     setFails([]);
     setSuccesses([]);
   };
@@ -62,8 +69,8 @@ const App = () => {
       </HangZone>
 
       {!startMenu &&
-        word &&
-        word.split('').map((letter, i) => {
+        data.word &&
+        data.word.split('').map((letter, i) => {
           return (
             <GuessWord
               className="letters"
@@ -76,11 +83,16 @@ const App = () => {
             </GuessWord>
           );
         })}
-
+      <Hint>
+        {!startMenu && (
+          data.hint
+        )
+        }
+      </Hint>
       {!startMenu &&
-        word &&
+        data.word &&
         fails.length !== threshold.current &&
-        successes.length !== word.length && (
+        successes.length !== data.word.length && (
           <LetterOptions className="options">
             {letters.split('').map(letter => {
               return (
@@ -98,15 +110,15 @@ const App = () => {
         )}
 
       {(fails.length === threshold.current ||
-        successes.length === word.length) &&
+        successes.length === data.word.length) &&
         !startMenu && (
           <GameMenu>
             <h1>
               {`${
-                successes.length === word.length
+                successes.length === data.word.length
                   ? 'YAY, YOU WIN!'
                   : 'BOO, YOU LOSE!'
-              }`}
+                }`}
             </h1>
             <GameButton onClick={newGame}>New Game</GameButton>
           </GameMenu>
