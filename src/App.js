@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import './App.css';
-import { getData, letters, getWord } from './helpers';
+import { getData, letters } from './helpers';
 import {
   Container,
   LettersButton,
@@ -20,6 +20,35 @@ import {
   GameMenu
 } from './App.sc';
 
+// Firebase
+import Firebase from './Firebase/Firebase';
+const db = Firebase.firestore();
+
+// const useFirestoreQuery = ref => {
+//   const [docState, setDocState] = useState({
+//     words: null
+//   });
+
+//   useEffect(() => {
+//     return ref.onSnapshot(snapshot => {
+//       setDocState({
+//         words: snapshot
+//       });
+//     });
+//   }, []);
+//   return docState;
+// };
+// const FirestoreData = () => {
+//   const ref = db.collection('words');
+
+//   const { words } = useFirestoreQuery(ref);
+//   return (
+//     <div>
+//       {words && <ul>{words.docs.map((doc, i) => Object.keys(doc.data()))}</ul>}
+//     </div>
+//   );
+// };
+
 const App = () => {
   const [fails, setFails] = useState([]);
   const [successes, setSuccesses] = useState([]);
@@ -28,6 +57,32 @@ const App = () => {
   const [startMenu, setStartMenu] = useState(true);
   const threshold = useRef(5);
 
+  // custom hook
+  const useFirestoreQuery = ref => {
+    const [docState, setDocState] = useState({
+      data: data
+    });
+
+    useEffect(() => {
+      return ref.onSnapshot(snapshot => {
+        setDocState({
+          data: snapshot
+        });
+      });
+    }, []);
+    return docState;
+  };
+
+  const FirestoreData = () => {
+    const ref = db.collection('words');
+    const { data } = useFirestoreQuery(ref);
+
+    console.log(data);
+    return data;
+  };
+
+  // calling this to see whats coming from firestore
+  FirestoreData();
 
   const selectLetter = letter => {
     if (data.word.includes(letter)) {
@@ -40,9 +95,9 @@ const App = () => {
   };
 
   const newGame = () => {
-    setData(getData());
+    setData(FirestoreData);
     // set previous word variable
-    setPrev(data.word)
+    setPrev(data.word);
     setFails([]);
     setSuccesses([]);
   };
@@ -65,12 +120,8 @@ const App = () => {
           </Swingers>
         </HangingMan>
       </HangZone>
-
       {/* catch repeated words */}
-      {data.word === prev && (
-        newGame()
-      )}
-
+      {data.word === prev && newGame()}
       {!startMenu &&
         data.word &&
         data.word.split('').map((letter, i) => {
@@ -86,14 +137,7 @@ const App = () => {
             </GuessWord>
           );
         })}
-
-      <Hint>
-        {!startMenu && (
-          data.hint
-        )
-        }
-      </Hint>
-
+      <Hint>{!startMenu && data.hint}</Hint>
       {!startMenu &&
         data.word &&
         fails.length !== threshold.current &&
@@ -113,14 +157,15 @@ const App = () => {
             })}
           </LetterOptions>
         )}
-
       {/* bind user key interactions as inputs */}
-      {onkeypress = (e) => {
-        if (!successes.includes(e.key)) {
-          selectLetter(e.key)
-        }
-      }};
-
+      {
+        (onkeypress = e => {
+          if (!successes.includes(e.key)) {
+            selectLetter(e.key);
+          }
+        })
+      }
+      ;
       {(fails.length === threshold.current ||
         successes.length === data.word.length) &&
         !startMenu && (
@@ -130,12 +175,11 @@ const App = () => {
                 successes.length === data.word.length
                   ? 'YAY, YOU WIN!'
                   : 'BOO, YOU LOSE!'
-                }`}
+              }`}
             </h1>
             <GameButton onClick={newGame}>New Game</GameButton>
           </GameMenu>
         )}
-
       {startMenu && (
         <GameMenu>
           <h2>GUESS THE WEB DEV WORD!</h2>
