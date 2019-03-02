@@ -24,31 +24,6 @@ import {
 import Firebase from './Firebase/Firebase';
 const db = Firebase.firestore();
 
-// const useFirestoreQuery = ref => {
-//   const [docState, setDocState] = useState({
-//     words: null
-//   });
-
-//   useEffect(() => {
-//     return ref.onSnapshot(snapshot => {
-//       setDocState({
-//         words: snapshot
-//       });
-//     });
-//   }, []);
-//   return docState;
-// };
-// const FirestoreData = () => {
-//   const ref = db.collection('words');
-
-//   const { words } = useFirestoreQuery(ref);
-//   return (
-//     <div>
-//       {words && <ul>{words.docs.map((doc, i) => Object.keys(doc.data()))}</ul>}
-//     </div>
-//   );
-// };
-
 const App = () => {
   const [fails, setFails] = useState([]);
   const [successes, setSuccesses] = useState([]);
