@@ -39,6 +39,7 @@ export const LettersButton = styled.button`
   color: #fff;
   margin: 3px;
   border: 1px solid #fff;
+  text-align: center;
 
   &:hover {
     background: rgba(255, 255, 255, 0.2);
@@ -64,7 +65,7 @@ export const GuessWordContainer = styled.div`
 
 export const GuessWord = styled.div`
   place-items: center;
-  width: 1.3rem;
+  width: 2rem;
   font-size: 2rem;
   height: 3rem;
   text-align: center;
@@ -75,12 +76,12 @@ export const GuessWord = styled.div`
   color: #fff;
   ${props => props && props.underline && `border-bottom: 5px solid #fff;`};
   @media (max-width: 414px) {
-    width: 2rem;
+    width: 1.3rem;
   }
 `;
 
 export const Hint = styled.div`
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   color: #fff;
   animation: ${enter} 0.25s 0.25s ease both;
   text-align: center;
@@ -101,8 +102,8 @@ export const GameMenu = styled.div`
   color: #fff;
   animation: ${enter} 0.25s 0.25s ease both;
   text-align: center;
-  position: relative;
-  grid-column: 1 / -1;
+  width: 24rem;
+  margin: auto;
 `;
 
 export const HangingMan = styled.svg`
@@ -122,8 +123,6 @@ export const HangingMan = styled.svg`
 `;
 
 export const HangZone = styled.div`
-  display: block;
-  grid-column: 1 / -1;
   text-align: center;
 `;
 
@@ -138,14 +137,12 @@ export const Swingers = styled.g`
 `;
 
 export const Frame = styled.path`
-  d: path('M 5 195 L 5 5 L 100 5 M 50 5 L 5 50');
   stroke-dashoffset: 400;
   stroke-dasharray: 400;
   animation: ${draw} 2s 1s ease;
 `;
 
 export const Rope = styled.path`
-  d: path('M 100 5 L 100 30');
   stroke-dashoffset: 100;
   stroke-dasharray: 100;
   animation: ${draw} 1s ease;
@@ -161,22 +158,65 @@ export const Head = styled.circle`
 `;
 
 export const Body = styled.path`
-  d: path('M 100 70 L 100 120');
   stroke-dashoffset: 200;
   stroke-dasharray: 200;
   animation: ${draw} 1s ease;
 `;
 
 export const Arms = styled.path`
-  d: path('M 90 110 L 100 80 L 110 110');
   stroke-dashoffset: 300;
   stroke-dasharray: 300;
   animation: ${draw} 2s ease;
 `;
 
 export const Legs = styled.path`
-  d: path('M 96 140 L 100 120 L 104 140');
   stroke-dashoffset: 300;
   stroke-dasharray: 300;
   animation: ${draw} 2s ease;
+`;
+
+const bounce = keyframes`
+0% {
+    transform: translateY(-45px);
+    animation-timing-function: ease-in;
+    opacity: 1;
+  }
+  24% {
+    opacity: 1;
+  }
+  40% {
+    transform: translateY(-24px);
+    animation-timing-function: ease-in;
+  }
+  65% {
+    transform: translateY(-12px);
+    animation-timing-function: ease-in;
+  }
+  82% {
+    transform: translateY(-6px);
+    animation-timing-function: ease-in;
+  }
+  93% {
+    transform: translateY(-4px);
+    animation-timing-function: ease-in;
+  }
+  25%,
+  55%,
+  75%,
+  87% {
+    transform: translateY(0px);
+    animation-timing-function: ease-out;
+  }
+  100% {
+    transform: translateY(0px);
+    animation-timing-function: ease-out;
+    opacity: 1;
+  }
+`;
+
+export const Logo = styled.div`
+  font-size: 3rem;
+  color: #fff;
+  animation: ${bounce} 3s both infinite;
+  animation-direction: alternate;
 `;

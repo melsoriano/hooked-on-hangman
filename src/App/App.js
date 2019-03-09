@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './App.css';
-import { getData, letters } from './helpers';
+import { getData, letters } from '../helpers';
 import {
   Container,
   LettersButton,
@@ -18,7 +18,8 @@ import {
   LetterOptions,
   GameButton,
   GameMenu,
-  GuessWordContainer
+  GuessWordContainer,
+  Logo
 } from './App.sc';
 
 const App = () => {
@@ -69,18 +70,32 @@ const App = () => {
 
   return (
     <Container className="container">
-      <HangZone>
-        <HangingMan preserveAspectRatio="xMinYMin" viewBox="0 0 200 200">
-          <Frame />
-          <Swingers animate={fails.length > 1}>
-            {fails.length >= 1 && <Rope />}
-            {fails.length >= 2 && <Head />}
-            {fails.length >= 3 && <Body />}
-            {fails.length >= 4 && <Arms />}
-            {fails.length >= 5 && <Legs />}
-          </Swingers>
-        </HangingMan>
-      </HangZone>
+      {startMenu && (
+        <GameMenu>
+          <Logo>hooked on hangman</Logo>
+          <h3>How to play:</h3>
+          <p>
+            Guess the web dev word! You can use your keyboard to type or select
+            a letter from the onscreen keyboard.
+          </p>
+          <GameButton onClick={menu}>PLAY</GameButton>
+        </GameMenu>
+      )}
+
+      {!startMenu && (
+        <HangZone>
+          <HangingMan viewBox="0 0 200 200">
+            <Frame d="M 5 195 L 5 5 L 100 5 M 50 5 L 5 50" />
+            <Swingers animate={fails.length > 1}>
+              {fails.length >= 1 && <Rope d="M 100 5 L 100 30" />}
+              {fails.length >= 2 && <Head />}
+              {fails.length >= 3 && <Body d="M 100 70 L 100 120" />}
+              {fails.length >= 4 && <Arms d="M 90 110 L 100 80 L 110 110" />}
+              {fails.length >= 5 && <Legs d="M 96 140 L 100 120 L 104 140" />}
+            </Swingers>
+          </HangingMan>
+        </HangZone>
+      )}
       {/* catch repeated words */}
       {data.word === prev && newGame()}
       <GuessWordContainer className="word-container">
@@ -125,9 +140,7 @@ const App = () => {
 
       {!startMenu &&
         (fails.length !== threshold.current &&
-          successes.length !== data.word.length) && (
-          <Hint>*Try it with your keyboard!</Hint>
-        )}
+          successes.length !== data.word.length)}
       {(fails.length === threshold.current ||
         successes.length === data.word.length) &&
         !startMenu && (
@@ -142,12 +155,6 @@ const App = () => {
             <GameButton onClick={newGame}>New Game</GameButton>
           </GameMenu>
         )}
-      {startMenu && (
-        <GameMenu>
-          <h2>GUESS THE WEB DEV WORD!</h2>
-          <GameButton onClick={menu}>PLAY</GameButton>
-        </GameMenu>
-      )}
     </Container>
   );
 };
