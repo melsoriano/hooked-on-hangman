@@ -29,7 +29,7 @@ const enter = keyframes`
 export const Container = styled.div`
   display: flex;
   flex-flow: column wrap;
-  margin: auto;
+  justify-content: center;
 `;
 
 export const LettersButton = styled.button`
@@ -37,8 +37,8 @@ export const LettersButton = styled.button`
   background: transparent;
   font-size: 1.25rem;
   color: #fff;
-  border: 1px solid #fff;
   margin: 3px;
+  border: 1px solid #fff;
 
   &:hover {
     background: rgba(255, 255, 255, 0.2);
@@ -59,11 +59,12 @@ export const GuessWordContainer = styled.div`
   display: flex;
   flex-flow: row nowrap;
   justify-content: center;
+  margin: auto;
 `;
 
 export const GuessWord = styled.div`
   place-items: center;
-  width: 2rem;
+  width: 1.3rem;
   font-size: 2rem;
   height: 3rem;
   text-align: center;
@@ -73,14 +74,13 @@ export const GuessWord = styled.div`
 
   color: #fff;
   ${props => props && props.underline && `border-bottom: 5px solid #fff;`};
-
   @media (max-width: 414px) {
-    width: 1.3rem;
+    width: 2rem;
   }
 `;
 
 export const Hint = styled.div`
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   color: #fff;
   animation: ${enter} 0.25s 0.25s ease both;
   text-align: center;
@@ -93,7 +93,8 @@ export const LetterOptions = styled.div`
   grid-template-columns: repeat(9, 44px);
   grid-template-rows: repeat(3, 44px);
   grid-column: 1 / -1;
-  text-align: center;
+  align-content: center;
+  justify-content: center;
 `;
 
 export const GameMenu = styled.div`
@@ -101,6 +102,7 @@ export const GameMenu = styled.div`
   animation: ${enter} 0.25s 0.25s ease both;
   text-align: center;
   position: relative;
+  grid-column: 1 / -1;
 `;
 
 export const HangingMan = styled.svg`
@@ -128,7 +130,11 @@ export const HangZone = styled.div`
 export const Swingers = styled.g`
   transform-origin: 50% 0;
   animation: ${swing} 3s infinite linear paused;
-  ${props => props.animate && `animation-play-state: running;`};
+  ${props =>
+    props.animate &&
+    `
+    animation-play-state: running;
+  `};
 `;
 
 export const Frame = styled.path`
