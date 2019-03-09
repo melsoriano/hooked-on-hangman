@@ -75,8 +75,8 @@ const App = () => {
           <Logo>hooked on hangman</Logo>
           <h3>How to play:</h3>
           <p>
-            Guess the web dev word! You can use your keyboard to type or select
-            a letter from the onscreen keyboard.
+            Guess the web dev word! You can type with your keyboard or choose a
+            letter from the onscreen keyboard.
           </p>
           <GameButton onClick={menu}>PLAY</GameButton>
         </GameMenu>
