@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import './App.css';
 import { getData, letters } from './helpers';
 import {
@@ -20,10 +20,6 @@ import {
   GameMenu
 } from './App.sc';
 
-// Firebase
-import Firebase from './Firebase/Firebase';
-const db = Firebase.firestore();
-
 const App = () => {
   const [fails, setFails] = useState([]);
   const [successes, setSuccesses] = useState([]);
@@ -31,33 +27,6 @@ const App = () => {
   const [prev, setPrev] = useState('');
   const [startMenu, setStartMenu] = useState(true);
   const threshold = useRef(5);
-
-  // custom hook
-  const useFirestoreQuery = ref => {
-    const [docState, setDocState] = useState({
-      data: data
-    });
-
-    useEffect(() => {
-      return ref.onSnapshot(snapshot => {
-        setDocState({
-          data: snapshot
-        });
-      });
-    }, []);
-    return docState;
-  };
-
-  const FirestoreData = () => {
-    const ref = db.collection('words');
-    const { data } = useFirestoreQuery(ref);
-
-    console.log(data);
-    return data;
-  };
-
-  // calling this to see whats coming from firestore
-  FirestoreData();
 
   const selectLetter = letter => {
     if (data.word.includes(letter)) {
@@ -70,7 +39,7 @@ const App = () => {
   };
 
   const newGame = () => {
-    setData(FirestoreData);
+    setData(getData());
     // set previous word variable
     setPrev(data.word);
     setFails([]);
