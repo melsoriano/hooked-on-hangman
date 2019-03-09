@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import './App.css';
 import { getData, letters } from './helpers';
 import {
@@ -50,6 +50,22 @@ const App = () => {
   const menu = () => {
     setStartMenu(false);
   };
+
+  useEffect(() => {
+    onkeypress = e => {
+      if (
+        !startMenu &&
+        !successes.includes(e.key) &&
+        !fails.includes(e.key) &&
+        successes.length !== data.word.length &&
+        fails.length !== threshold.current
+      ) {
+        selectLetter(e.key);
+      } else {
+        return;
+      }
+    };
+  });
 
   return (
     <Container className="container">
@@ -106,14 +122,7 @@ const App = () => {
             <br />
           </LetterOptions>
         )}
-      {/* bind user key interactions as inputs */}
-      {
-        (onkeypress = e => {
-          if (!successes.includes(e.key)) {
-            selectLetter(e.key);
-          }
-        })
-      }
+
       {!startMenu &&
         (fails.length !== threshold.current &&
           successes.length !== data.word.length) && (
