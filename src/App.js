@@ -17,7 +17,8 @@ import {
   GuessWord,
   LetterOptions,
   GameButton,
-  GameMenu
+  GameMenu,
+  GuessWordContainer
 } from './App.sc';
 
 const App = () => {
@@ -66,21 +67,24 @@ const App = () => {
       </HangZone>
       {/* catch repeated words */}
       {data.word === prev && newGame()}
-      {!startMenu &&
-        data.word &&
-        data.word.split('').map((letter, i) => {
-          return (
-            <GuessWord
-              className="letters"
-              key={`letters--${i}`}
-              underline={true}
-              fade={!successes.includes(letter)}>
-              {(successes.includes(letter) ||
-                fails.length === threshold.current) &&
-                letter}
-            </GuessWord>
-          );
-        })}
+      <GuessWordContainer className="word-container">
+        {!startMenu &&
+          data.word &&
+          data.word.split('').map((letter, i) => {
+            return (
+              <GuessWord
+                className="letters"
+                key={`letters--${i}`}
+                underline={true}
+                fade={!successes.includes(letter)}>
+                {' '}
+                {(successes.includes(letter) ||
+                  fails.length === threshold.current) &&
+                  letter}{' '}
+              </GuessWord>
+            );
+          })}
+      </GuessWordContainer>
       <Hint>{!startMenu && data.hint}</Hint>
       {!startMenu &&
         data.word &&
@@ -99,6 +103,7 @@ const App = () => {
                 </LettersButton>
               );
             })}
+            <br />
           </LetterOptions>
         )}
       {/* bind user key interactions as inputs */}
@@ -109,7 +114,11 @@ const App = () => {
           }
         })
       }
-      ;
+      {!startMenu &&
+        (fails.length !== threshold.current &&
+          successes.length !== data.word.length) && (
+          <Hint>*Try it with your keyboard!</Hint>
+        )}
       {(fails.length === threshold.current ||
         successes.length === data.word.length) &&
         !startMenu && (
