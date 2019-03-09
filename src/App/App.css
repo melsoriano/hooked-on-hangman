@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css?family=Nunito");
+@import url("https://fonts.googleapis.com/css?family=VT323");
 
 * {
   box-sizing: border-box;
@@ -6,11 +6,9 @@
 
 body {
   background-color: #1d1d1d;
-  font-family: 'Nunito';
-  margin: 0;
-  padding: 0;
+  font-family: 'VT323';
+  text-transform: uppercase;
   transition: background 0.25s ease;
-  overflow-x: hidden;
   align-items: center;
   display: flex;
   justify-content: center;
@@ -19,6 +17,6 @@ body {
 }
 
 button {
-  font-family: 'Nunito';
-  font-weight: bold;
+  font-family: 'VT323';
+  text-transform: uppercase;
 }

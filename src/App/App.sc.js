@@ -107,10 +107,7 @@ export const GameMenu = styled.div`
 `;
 
 export const HangingMan = styled.svg`
-  height: 180px;
-  @media (min-width: 375px) and (min-height: 660px) {
-    height: 320px;
-  }
+  height: 20rem;
   path,
   circle {
     animation-fill-mode: forwards;
