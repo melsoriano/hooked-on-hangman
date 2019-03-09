@@ -29,6 +29,7 @@ const enter = keyframes`
 export const Container = styled.div`
   display: flex;
   flex-flow: column wrap;
+  margin: auto;
 `;
 
 export const LettersButton = styled.button`
@@ -36,7 +37,8 @@ export const LettersButton = styled.button`
   background: transparent;
   font-size: 1.25rem;
   color: #fff;
-  border: 2 px solid #fff;
+  border: 1px solid #fff;
+  margin: 3px;
 
   &:hover {
     background: rgba(255, 255, 255, 0.2);
@@ -57,11 +59,12 @@ export const GuessWordContainer = styled.div`
   display: flex;
   flex-flow: row nowrap;
   justify-content: center;
+  margin: auto;
 `;
 
 export const GuessWord = styled.div`
   place-items: center;
-  width: 3rem;
+  width: 2rem;
   font-size: 2rem;
   height: 3rem;
   text-align: center;
@@ -71,10 +74,14 @@ export const GuessWord = styled.div`
 
   color: #fff;
   ${props => props && props.underline && `border-bottom: 5px solid #fff;`};
+
+  @media (max-width: 414px) {
+    width: 1.3rem;
+  }
 `;
 
 export const Hint = styled.div`
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   color: #fff;
   animation: ${enter} 0.25s 0.25s ease both;
   text-align: center;
@@ -93,17 +100,12 @@ export const LetterOptions = styled.div`
 
 export const GameMenu = styled.div`
   color: #fff;
-  grid-column: 1 / -1;
   animation: ${enter} 0.25s 0.25s ease both;
   text-align: center;
-  position: relative;
 `;
 
 export const HangingMan = styled.svg`
-  height: 180px;
-  @media (min-width: 375px) and (min-height: 660px) {
-    height: 320px;
-  }
+  height: 320px;
   path,
   circle {
     animation-fill-mode: forwards;
@@ -116,19 +118,13 @@ export const HangingMan = styled.svg`
 `;
 
 export const HangZone = styled.div`
-  display: block;
-  grid-column: 1 / -1;
   text-align: center;
 `;
 
 export const Swingers = styled.g`
   transform-origin: 50% 0;
   animation: ${swing} 3s infinite linear paused;
-  ${props =>
-    props.animate &&
-    `
-    animation-play-state: running;
-  `};
+  ${props => props.animate && `animation-play-state: running;`};
 `;
 
 export const Frame = styled.path`
