@@ -59,7 +59,6 @@ export const GuessWordContainer = styled.div`
   display: flex;
   flex-flow: row nowrap;
   justify-content: center;
-  margin: auto;
 `;
 
 export const GuessWord = styled.div`
@@ -94,18 +93,21 @@ export const LetterOptions = styled.div`
   grid-template-columns: repeat(9, 44px);
   grid-template-rows: repeat(3, 44px);
   grid-column: 1 / -1;
-  align-content: center;
-  justify-content: center;
+  text-align: center;
 `;
 
 export const GameMenu = styled.div`
   color: #fff;
   animation: ${enter} 0.25s 0.25s ease both;
   text-align: center;
+  position: relative;
 `;
 
 export const HangingMan = styled.svg`
-  height: 320px;
+  height: 180px;
+  @media (min-width: 375px) and (min-height: 660px) {
+    height: 320px;
+  }
   path,
   circle {
     animation-fill-mode: forwards;
@@ -118,6 +120,8 @@ export const HangingMan = styled.svg`
 `;
 
 export const HangZone = styled.div`
+  display: block;
+  grid-column: 1 / -1;
   text-align: center;
 `;
 

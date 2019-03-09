@@ -145,7 +145,7 @@ const App = () => {
       {startMenu && (
         <GameMenu>
           <h2>GUESS THE WEB DEV WORD!</h2>
-          <GameButton onClick={menu}>START</GameButton>
+          <GameButton onClick={menu}>PLAY</GameButton>
         </GameMenu>
       )}
     </Container>
