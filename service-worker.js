@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/hooked-on-hangman/precache-manifest.50326ecec66a72176cdd1d80f1251659.js"
+  "/hooked-on-hangman/precache-manifest.917d4fee60545fd2d1ccd45b2788b36a.js"
 );
 
 workbox.clientsClaim();
