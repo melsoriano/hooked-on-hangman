@@ -4,19 +4,19 @@ self.__precacheManifest = [
     "url": "/hooked-on-hangman/static/js/runtime~main.23802fab.js"
   },
   {
-    "revision": "4cca9d6973f179aa1591",
-    "url": "/hooked-on-hangman/static/js/main.4cca9d69.chunk.js"
+    "revision": "8c1ef45eafc706c39c28",
+    "url": "/hooked-on-hangman/static/js/main.8c1ef45e.chunk.js"
   },
   {
     "revision": "e0685c72cb77b1f1dab1",
     "url": "/hooked-on-hangman/static/js/2.e0685c72.chunk.js"
   },
   {
-    "revision": "4cca9d6973f179aa1591",
+    "revision": "8c1ef45eafc706c39c28",
     "url": "/hooked-on-hangman/static/css/main.d6c58e9b.chunk.css"
   },
   {
-    "revision": "0aa9a9c0d855e26804f0345f74507df7",
+    "revision": "4ce5d610ccf939dfca50f491ee474796",
     "url": "/hooked-on-hangman/index.html"
   }
 ];
