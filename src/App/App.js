@@ -62,6 +62,12 @@ const App = () => {
         fails.length !== threshold.current
       ) {
         selectLetter(e.key);
+      } else if (
+        e.key === 'Enter' &&
+        (successes.length === data.word.length ||
+          fails.length === threshold.current)
+      ) {
+        newGame();
       } else {
         return;
       }
